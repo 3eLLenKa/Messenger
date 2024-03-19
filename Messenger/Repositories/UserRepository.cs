@@ -14,7 +14,21 @@ namespace Messenger.Repositories
     {
         public void Add(UserModel userModel)
         {
-            throw new NotImplementedException();
+            bool validUser;
+
+            using (var connection = GetConnection())
+            using (var command = connection.CreateCommand())
+            {
+                connection.Open();
+
+                command.Connection = connection;
+                command.CommandText = "insert into [Users](Username, Password, [Name], LastName, Email) values(@username, @pass, @name, @lastname, @email)";
+                command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = userModel.Username;
+                command.Parameters.Add("@pass", System.Data.SqlDbType.NVarChar).Value = userModel.Password;
+                command.Parameters.Add("@name", System.Data.SqlDbType.NVarChar).Value = userModel.Name;
+                command.Parameters.Add("@lastname", System.Data.SqlDbType.NVarChar).Value = userModel.LastName;
+                command.Parameters.Add("@email", System.Data.SqlDbType.NVarChar).Value = userModel.Email;
+            }
         }
 
         public bool AuthUser(NetworkCredential credential)

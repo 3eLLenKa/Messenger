@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using System.Windows.Controls;
 using Messenger.MVVM.Views;
 
 namespace Messenger
@@ -12,15 +13,18 @@ namespace Messenger
     {
         protected void ApplicationStart(object sender, StartupEventArgs e)
         {
-            var loginView = new LoginView();
-            loginView.Show();
-            loginView.IsVisibleChanged += (s, ev) =>
+            var mainWindow = new MainWindow();
+            var loginPage = new LoginView();
+
+            mainWindow.Show();
+            mainWindow.MainFrame.Navigate(loginPage);
+
+            loginPage.IsVisibleChanged += (s, ev) =>
             {
-                if (loginView.IsVisible == false && loginView.IsLoaded)
+                if (!loginPage.IsVisible && loginPage.IsLoaded)
                 {
-                    var mainView = new MainWindow();
-                    mainView.Show();
-                    loginView.Close();
+                    var dataPage = new MainView();
+                    mainWindow.MainFrame.Navigate(dataPage);
                 }
             };
         }

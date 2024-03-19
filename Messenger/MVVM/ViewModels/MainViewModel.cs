@@ -11,7 +11,7 @@ namespace Messenger.MVVM.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private UserAccountModel _currentUserAccount;
+        private UserAccountModel? _currentUserAccount;
         private IUserRepository _userRepository;
         public UserAccountModel CurrentUserAccount
         {

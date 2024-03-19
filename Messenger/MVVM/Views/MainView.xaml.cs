@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Messenger.MVVM.Views
 {
     /// <summary>
-    /// Логика взаимодействия для RegPage.xaml
+    /// Логика взаимодействия для MainView.xaml
     /// </summary>
-    public partial class LoginView : Page
+    public partial class MainView : Page
     {
-        public LoginView()
+        public MainView()
         {
             InitializeComponent();
         }
