@@ -1,0 +1,64 @@
+﻿<Window x:Class="Messenger.MVVM.Views.LoginView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Messenger.MVVM.Views" 
+      xmlns:viewmodel="clr-namespace:Messenger.MVVM.ViewModels" 
+      xmlns:customcontrols="clr-namespace:Messenger.CustomControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RegPage"
+      Background="AliceBlue">
+
+    <Window.DataContext>
+        <viewmodel:LoginViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibility"/>
+    </Window.Resources>
+
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource booleanToVisibility}"/>
+    </Window.Visibility>
+
+    <Grid>
+        <Border Background="Purple" Width="350" Height="220" CornerRadius="20">
+            <StackPanel Margin="20">
+                <TextBlock 
+                    Text="Войдите или зарегестрируйтесь"
+                    Foreground="White"
+                    FontSize="17"
+                    FontFamily="Calibri"
+                    FontWeight="Medium"
+                    Margin="10,5,10,0">
+                </TextBlock>
+
+                <TextBox Height="21" Margin="10,25,10,5" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <customcontrols:BindablePasswordBox Height="21" Margin="10,0,10,5" Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></customcontrols:BindablePasswordBox>
+
+                <Button Width="100" Height="20"
+                        Command="{Binding LoginCommand}"
+                        Content="Войти"
+                        Foreground="Black"
+                        FontWeight="Medium"
+                        Background="LightBlue"
+                        Margin="10"
+                        ></Button>
+                <Button
+                    x:Name="NewAccount"
+                    Width="100"
+                    Height="20"
+                    Content="Создать аккаунт"
+                    Background="Transparent"
+                    Foreground="Azure"
+                    FontSize="11"
+                    Margin="0 10 0 0"
+                    BorderBrush="Transparent"
+                    Style="{StaticResource LinkButtonStyle}">
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
