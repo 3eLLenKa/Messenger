@@ -2,6 +2,7 @@
 using Messenger.MVVM.Views;
 using Messenger.Repositories;
 using Messenger.Navigation;
+using Messenger.Checks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,14 +102,12 @@ namespace Messenger.MVVM.ViewModels
         {
             bool validData;
 
-            if (string.IsNullOrWhiteSpace(Username) ||
-                Username.Length < 3 ||
-                Password == null ||
-                Password.Length < 3)
+            if (CheckUserData.CheckSecurePassword(Password) &
+                CheckUserData.CheckOtherData([Username]))
             {
-                validData = false;
+                validData = true;
             }
-            else validData = true;
+            else validData = false;
 
             return validData;
         }
