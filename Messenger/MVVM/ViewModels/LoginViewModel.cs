@@ -1,4 +1,5 @@
 ﻿using Messenger.MVVM.Models;
+using Messenger.MVVM.Views;
 using Messenger.Repositories;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Windows.Input;
 using System.Net;
 using System.Security.Principal;
 using System.Security.Cryptography.Xml;
+using System.Windows.Navigation;
 
 namespace Messenger.MVVM.ViewModels
 {
@@ -66,12 +68,14 @@ namespace Messenger.MVVM.ViewModels
         public ICommand RecoverPasswordCommand { get; }
         public ICommand ShowPasswordCommand { get; }
         public ICommand RememberPasswordCommand { get; }
+        public ICommand ShowRegistrationPage {  get; }
 
         public LoginViewModel()
         {
             _userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             RecoverPasswordCommand = new ViewModelCommand(value => ExecuteRecoverPasswordCommand("", ""));
+            ShowRegistrationPage = new ViewModelCommand(ExecuteShowRegistrationPageCommand);
         }
 
         private void ExecuteLoginCommand(object obj)
@@ -110,6 +114,14 @@ namespace Messenger.MVVM.ViewModels
         private void ExecuteRecoverPasswordCommand(string username, string email)
         {
             throw new NotImplementedException();
+        }
+
+        private void ExecuteShowRegistrationPageCommand(object obj)
+        {
+            var main = new MainWindow();
+
+            main.MainFrame.Navigate(new RegView());
+            //IsViewVisible = false;
         }
     }
 }

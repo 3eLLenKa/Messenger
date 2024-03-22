@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Messenger.MVVM.Views" 
+      xmlns:materialDesign="https://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:viewmodel="clr-namespace:Messenger.MVVM.ViewModels" 
       xmlns:customcontrols="clr-namespace:Messenger.CustomControls"
       mc:Ignorable="d" 
@@ -24,7 +25,7 @@
     </Page.Visibility>
 
     <Grid>
-        <Border Background="Purple" Width="350" Height="220" CornerRadius="20">
+        <Border Background="Purple" Width="360" Height="250" CornerRadius="20">
             <StackPanel Margin="20">
                 <TextBlock 
                     Text="Войдите или зарегестрируйтесь"
@@ -38,7 +39,7 @@
                 <TextBox Height="21" Margin="10,25,10,5" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <customcontrols:BindablePasswordBox Height="21" Margin="10,0,10,5" Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></customcontrols:BindablePasswordBox>
 
-                <Button Width="100" Height="20"
+                <Button Width="100" Height="27"
                         Command="{Binding LoginCommand}"
                         Content="Войти"
                         Foreground="Black"
@@ -56,7 +57,8 @@
                     FontSize="11"
                     Margin="0 10 0 0"
                     BorderBrush="Transparent"
-                    Style="{StaticResource LinkButtonStyle}">
+                    Style="{StaticResource LinkButtonStyle}"
+                    Command="{Binding ShowRegistrationPage}">
                 </Button>
             </StackPanel>
         </Border>

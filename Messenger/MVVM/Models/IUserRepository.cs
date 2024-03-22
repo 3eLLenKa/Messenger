@@ -11,6 +11,10 @@ namespace Messenger.MVVM.Models
     {
         bool AuthUser(NetworkCredential credential);
 
+        void RegUser(UserModel user);
+
+        bool CheckUserByEmail(string email);
+
         void Add(UserModel userModel);
         void Edit(UserModel userModel, string field);
         void Remove(int id);

@@ -14,20 +14,21 @@ namespace Messenger.Repositories
     {
         public void Add(UserModel userModel)
         {
-            bool validUser;
+            throw new NotImplementedException();
+        }
 
+        public void RegUser(UserModel user)
+        {
             using (var connection = GetConnection())
-            using (var command = connection.CreateCommand())
+            using (var command = new SqlCommand())
             {
                 connection.Open();
 
                 command.Connection = connection;
-                command.CommandText = "insert into [Users](Username, Password, [Name], LastName, Email) values(@username, @pass, @name, @lastname, @email)";
-                command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = userModel.Username;
-                command.Parameters.Add("@pass", System.Data.SqlDbType.NVarChar).Value = userModel.Password;
-                command.Parameters.Add("@name", System.Data.SqlDbType.NVarChar).Value = userModel.Name;
-                command.Parameters.Add("@lastname", System.Data.SqlDbType.NVarChar).Value = userModel.LastName;
-                command.Parameters.Add("@email", System.Data.SqlDbType.NVarChar).Value = userModel.Email;
+                command.CommandText = "insert into [Users] (Username, Password, [Name], [LastName], [Email]) values (@username, @password, @name, @lastname, @email)";
+                command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = user.Username;
+                command.Parameters.Add("@password", System.Data.SqlDbType.NVarChar).Value = user.Password;
+
             }
         }
 
@@ -72,10 +73,6 @@ namespace Messenger.Repositories
                     case "password":
                         command.CommandText = $"update [Users] set [Password] = @value where Id = @id";
                         command.Parameters.Add("@value", SqlDbType.NVarChar).Value = userModel.Password;
-                        break;
-                    case "photo":
-                        command.CommandText = $"update [Users] set [Password] = @value where Id = @id";
-                        command.Parameters.Add("@value", SqlDbType.NVarChar).Value = userModel.Photo;
                         break;
                     default:
                         throw new ArgumentException("Invalid field to edit");
@@ -196,6 +193,32 @@ namespace Messenger.Repositories
                 command.Connection = connection;
                 command.CommandText = "delete from [Users] where Id = @id";
                 command.Parameters.Add("@id", System.Data.SqlDbType.NVarChar).Value = id;
+            }
+        }
+
+        public bool CheckUserByEmail(string email)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+
+                command.Connection = connection;
+                command.CommandText = "select count(*) from [Users] where Email = @email";
+                command.Parameters.Add("@email", System.Data.SqlDbType.NVarChar).Value = email;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        if (Convert.ToInt32(reader[0].ToString()) > 0)
+                        {
+                            return false;
+                        }
+                        else return true;
+                    }
+                    else { return false; }
+                }
             }
         }
     }
