@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Messenger.MVVM.Models;
 using Microsoft.Data.SqlClient;
 
@@ -24,11 +25,17 @@ namespace Messenger.Repositories
             {
                 connection.Open();
 
+                MessageBox.Show($"{user.Name}, {user.LastName}, {user.Password}, {user.Email}");
+
                 command.Connection = connection;
-                command.CommandText = "insert into [Users] (Username, Password, [Name], [LastName], [Email]) values (@username, @password, @name, @lastname, @email)";
+                command.CommandText = $"insert into [Users] (Username, Password, [Name], [LastName], [Email]) values (@username, @password, @name, @lastname, @email)";
                 command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = user.Username;
                 command.Parameters.Add("@password", System.Data.SqlDbType.NVarChar).Value = user.Password;
+                command.Parameters.Add("@name", System.Data.SqlDbType.NVarChar).Value = user.Name;
+                command.Parameters.Add("@lastname", System.Data.SqlDbType.NVarChar).Value = user.LastName;
+                command.Parameters.Add("@email", System.Data.SqlDbType.NVarChar).Value = user.Email;
 
+                command.ExecuteNonQuery();
             }
         }
 

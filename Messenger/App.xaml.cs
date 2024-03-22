@@ -3,6 +3,7 @@ using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using Messenger.MVVM.Views;
+using Messenger.Navigation;
 
 namespace Messenger
 {
@@ -16,17 +17,19 @@ namespace Messenger
             var mainWindow = new MainWindow();
             var loginPage = new LoginView();
 
-            mainWindow.Show();
-            mainWindow.MainFrame.Navigate(loginPage);
+            NavigationSource.GetNavigation = mainWindow.MainFrame;
 
-            loginPage.IsVisibleChanged += (s, ev) =>
-            {
-                if (!loginPage.IsVisible && loginPage.IsLoaded)
-                {
-                    var dataPage = new MainView();
-                    mainWindow.MainFrame.Navigate(dataPage);
-                }
-            };
+            mainWindow.Show();
+
+            NavigationSource.GetNavigation.Navigate(loginPage);
+
+            //loginPage.IsVisibleChanged += (s, ev) =>
+            //{
+            //    if (!loginPage.IsVisible && loginPage.IsLoaded)
+            //    {
+            //        mainWindow.MainFrame.Navigate(new MainView());
+            //    }
+            //};
         }
     }
 }

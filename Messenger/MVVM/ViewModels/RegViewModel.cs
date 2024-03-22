@@ -1,5 +1,7 @@
 ﻿using Messenger.MVVM.Models;
 using Messenger.Repositories;
+using Messenger.Navigation;
+using Messenger.MVVM.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,15 +104,6 @@ namespace Messenger.MVVM.ViewModels
         public RegViewModel()
         {
             _userRepository = new UserRepository();
-            _user = new UserModel()
-            {
-                Password = new System.Net.NetworkCredential(UserName, Password).Password,
-                Username = new System.Net.NetworkCredential(UserName, Password).UserName,
-                Name = FirstName,
-                LastName = LastName,
-                Email = Email,
-            };
-
             regCommand = new ViewModelCommand(ExecuteRegCommand, CanExecuteRegCommand);
         }
 
@@ -120,12 +113,24 @@ namespace Messenger.MVVM.ViewModels
 
             if (isCheckedUser)
             {
+                _user = new UserModel()
+                {
+                    Id = null,
+                    Username = UserName,
+                    Password = new System.Net.NetworkCredential(UserName, Password).Password,
+                    Name = FirstName,
+                    LastName = LastName,
+                    Email = Email,
+                };
+
                 _userRepository.RegUser(_user);
 
                 Thread.CurrentPrincipal = new GenericPrincipal(
                     new GenericIdentity(UserName), null);
 
                 IsViewVisible = false;
+
+                NavigationSource.GetNavigation.Navigate(new MainView());
             }
             else
             {
@@ -139,14 +144,14 @@ namespace Messenger.MVVM.ViewModels
 
             if (string.IsNullOrWhiteSpace(UserName) ||
                 UserName.Length < 3 ||
-                Password == null ||
-                Password.Length < 3 ||
+                //Password == null ||
+                //Password.Length < 3 ||
                 string.IsNullOrWhiteSpace(FirstName) ||
                 FirstName.Length < 3 ||
                 string.IsNullOrWhiteSpace(LastName) ||
                 LastName.Length < 3 ||
                 string.IsNullOrWhiteSpace(Email) ||
-                FirstName.Length < 3
+                Email.Length < 3
                 )
             {
                 validData = false;

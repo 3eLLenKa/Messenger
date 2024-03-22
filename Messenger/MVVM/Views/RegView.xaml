@@ -44,7 +44,7 @@
                 </DockPanel>
                 <Label Width="65" Content="Password" Foreground="White" HorizontalAlignment="Left" Margin="5,0,0,0"/>
                 <DockPanel Margin="10,0,10,10">
-                    <custom:BindablePasswordBox Password="{Binding Password, UpdateSourceTrigger=PropertyChanged}"></custom:BindablePasswordBox>
+                    <custom:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></custom:BindablePasswordBox>
                 </DockPanel>
                 <Button 
                     Width="100" 

@@ -1,6 +1,7 @@
 ﻿using Messenger.MVVM.Models;
 using Messenger.MVVM.Views;
 using Messenger.Repositories;
+using Messenger.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,6 +88,7 @@ namespace Messenger.MVVM.ViewModels
                 Thread.CurrentPrincipal = new GenericPrincipal(
                     new GenericIdentity(Username), null);
 
+                NavigationSource.GetNavigation.Navigate(new MainView());
                 IsViewVisible = false;
             }
             else
@@ -118,10 +120,8 @@ namespace Messenger.MVVM.ViewModels
 
         private void ExecuteShowRegistrationPageCommand(object obj)
         {
-            var main = new MainWindow();
-
-            main.MainFrame.Navigate(new RegView());
-            //IsViewVisible = false;
+            NavigationSource.GetNavigation.Navigate(new RegView());
+            IsViewVisible = false;
         }
     }
 }
