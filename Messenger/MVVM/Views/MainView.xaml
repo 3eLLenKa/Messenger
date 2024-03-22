@@ -7,17 +7,26 @@
       xmlns:viewmodels="clr-namespace:Messenger.MVVM.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Background="White"
       Title="MainView">
 
     <Page.DataContext>
-        <viewmodels:MainViewModel/>
+        <viewmodels:NavigationViewModel/>
     </Page.DataContext>
 
     <Grid>
-        <TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
-               FontSize="30"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               Foreground="Black"></TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180*"/>
+            <ColumnDefinition Width="621*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#FF679491">
+            <StackPanel>
+                <Button Height="25" Margin="20" Content="Чаты" Command="{Binding ShowChatCommand}"/>
+                <Button Height="25" Margin="20" Content="Профиль" Command="{Binding ShowProfileCommand}"/>
+                <Button Height="25" Margin="20" Content="Настройки" Command="{Binding ShowSettingsCommand}"/>
+            </StackPanel>
+        </Border>
+        <ContentControl Grid.Column="1" Content="{Binding CurrentView}"/>
     </Grid>
 </Page>

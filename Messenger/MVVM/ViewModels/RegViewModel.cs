@@ -101,11 +101,19 @@ namespace Messenger.MVVM.ViewModels
         }
 
         public ICommand regCommand { get; }
+        public ICommand ShowLoginForm {  get; }
 
         public RegViewModel()
         {
             _userRepository = new UserRepository();
             regCommand = new ViewModelCommand(ExecuteRegCommand, CanExecuteRegCommand);
+            ShowLoginForm = new ViewModelCommand(ExecuteShowLoginFormCommand);
+        }
+
+        private void ExecuteShowLoginFormCommand(object parameter)
+        {
+            NavigationSource.GetNavigation.Navigate(new LoginView());
+            IsViewVisible = false;
         }
 
         private void ExecuteRegCommand(object parameter)

@@ -59,7 +59,8 @@
                     Background="Transparent" 
                     Foreground="White" 
                     Content="Уже есть аккаунт"
-                    BorderBrush="Transparent"/>
+                    BorderBrush="Transparent"
+                    Command="{Binding ShowLoginForm}"/>
             </StackPanel>
         </Border>
     </Grid>
