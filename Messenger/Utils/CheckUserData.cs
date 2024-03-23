@@ -16,7 +16,7 @@ namespace Messenger.Checks
             if (password != null &
                 !string.IsNullOrWhiteSpace(new System.Net.NetworkCredential("", password).Password))
             {
-                return true;
+                return true; 
             }
             else return false;
         }

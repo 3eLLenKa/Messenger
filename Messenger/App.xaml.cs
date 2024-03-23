@@ -17,7 +17,6 @@ namespace Messenger
         protected void ApplicationStart(object sender, StartupEventArgs e)
         {
             var mainWindow = new MainWindow();
-            var loginPage = new LoginView();
 
             NavigationSource.GetNavigation = mainWindow.MainFrame;
 
@@ -27,7 +26,7 @@ namespace Messenger
             {
                 NavigationSource.GetNavigation.Navigate(new MainView());
             }
-            else NavigationSource.GetNavigation.Navigate(loginPage);
+            else NavigationSource.GetNavigation.Navigate(new LoginView());
 
             //loginPage.IsVisibleChanged += (s, ev) =>
             //{

@@ -48,8 +48,8 @@ namespace Messenger.Utils
 
         public static void Logout()
         {
-            Username = "";
-            AuthToken = "";
+            Username = string.Empty;
+            AuthToken = string.Empty;
         }
     }
 }
