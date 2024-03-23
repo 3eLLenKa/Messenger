@@ -22,9 +22,26 @@
 
         <Border Grid.Column="0" Background="#FF679491">
             <StackPanel>
-                <Button Height="25" Margin="20" Content="Чаты" Command="{Binding ShowChatCommand}"/>
-                <Button Height="25" Margin="20" Content="Профиль" Command="{Binding ShowProfileCommand}"/>
-                <Button Height="25" Margin="20" Content="Настройки" Command="{Binding ShowSettingsCommand}"/>
+                <RadioButton 
+                    Height="25" 
+                    Margin="20" 
+                    Content="Чаты" 
+                    Style="{StaticResource MenuButtonStyle}" 
+                    Command="{Binding ShowChatCommand}"/>
+                
+                <RadioButton 
+                    Height="25" 
+                    Margin="20" 
+                    Content="Профиль" 
+                    Style="{StaticResource MenuButtonStyle}"
+                    Command="{Binding ShowProfileCommand}"/>
+                
+                <RadioButton 
+                    Height="25" 
+                    Margin="20"
+                    Content="Настройки" 
+                    Style="{StaticResource MenuButtonStyle}"
+                    Command="{Binding ShowSettingsCommand}"/>
             </StackPanel>
         </Border>
         <ContentControl Grid.Column="1" Content="{Binding CurrentView}"/>

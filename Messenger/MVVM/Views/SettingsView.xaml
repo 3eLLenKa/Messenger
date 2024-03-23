@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Messenger.MVVM.Views"
              mc:Ignorable="d" 
              Background="White"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Style="{StaticResource LoadPageStyle}">
     <Grid>
         <TextBlock Text="Settings" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
     </Grid>
