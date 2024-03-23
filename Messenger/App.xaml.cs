@@ -1,9 +1,11 @@
 ﻿using System.Configuration;
 using System.Data;
+using System.Security.Cryptography.Xml;
 using System.Windows;
 using System.Windows.Controls;
 using Messenger.MVVM.Views;
 using Messenger.Navigation;
+using Messenger.Utils;
 
 namespace Messenger
 {
@@ -21,7 +23,11 @@ namespace Messenger
 
             mainWindow.Show();
 
-            NavigationSource.GetNavigation.Navigate(loginPage);
+            if (SessionManager.IsLoggedIn())
+            {
+                NavigationSource.GetNavigation.Navigate(new MainView());
+            }
+            else NavigationSource.GetNavigation.Navigate(loginPage);
 
             //loginPage.IsVisibleChanged += (s, ev) =>
             //{

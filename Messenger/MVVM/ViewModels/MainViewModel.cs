@@ -1,5 +1,6 @@
 ﻿using Messenger.MVVM.Models;
 using Messenger.Repositories;
+using Messenger.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,11 @@ namespace Messenger.MVVM.ViewModels
         private void LoadCurrentUserData()
         {
             // Получение данных текущего пользователя из репозитория по имени пользователя из текущего контекста
-            var user = _userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
+
+            UserModel user = null;
+
+            if (SessionManager.IsLoggedIn()) { user = _userRepository.GetByUsername(SessionManager.Username); }
+            else user = _userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
 
             if (user != null)
             {

@@ -3,6 +3,7 @@ using Messenger.MVVM.Views;
 using Messenger.Repositories;
 using Messenger.Navigation;
 using Messenger.Checks;
+using Messenger.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,6 +91,10 @@ namespace Messenger.MVVM.ViewModels
                     new GenericIdentity(Username), null);
 
                 NavigationSource.GetNavigation.Navigate(new MainView());
+
+                SessionManager.Username = this.Username;
+                SessionManager.AuthToken = "authToken123";
+
                 IsViewVisible = false;
             }
             else
