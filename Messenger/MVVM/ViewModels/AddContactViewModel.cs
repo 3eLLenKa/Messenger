@@ -27,19 +27,31 @@ namespace Messenger.MVVM.ViewModels
                 _searchText = value;
                 OnPropertyChanged(nameof(SearchText));
 
-                Task.Delay(100).Wait();
+                Task.Delay(90).Wait();
 
                 Search();
             }
         }
         public ICommand AddContactCommand { get; }
+        public ICommand DeleteContactCommand { get; }
 
         public AddContactViewModel()
         {
             _userRepository = new UserRepository();
             SearchResult = new ObservableCollection<string>();
 
-            //SearchCommand = new ViewModelCommand(ExecuteSearchCommand);
+            AddContactCommand = new ViewModelCommand(ExecuteAddContactCommand);
+            DeleteContactCommand = new ViewModelCommand(ExecuteDeleteContactCommand);
+        }
+
+        private void ExecuteAddContactCommand(object parameter)
+        {
+
+        }
+
+        private void ExecuteDeleteContactCommand(object parameter)
+        {
+
         }
 
         private void Search()

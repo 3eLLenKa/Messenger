@@ -20,7 +20,7 @@ namespace Messenger.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> GetUsernames(string username)
+        public IEnumerable<string> GetUsernames(string username) 
         {
             List<string> usernames = new List<string>();
 
