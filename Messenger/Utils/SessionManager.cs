@@ -1,4 +1,7 @@
 ﻿using System.Configuration;
+using Messenger.Navigation;
+using Messenger.Utils;
+using Messenger.MVVM.Views;
 
 namespace Messenger.Utils
 {
@@ -50,6 +53,8 @@ namespace Messenger.Utils
         {
             Username = string.Empty;
             AuthToken = string.Empty;
+
+            NavigationSource.GetNavigation.Navigate(new LoginView());
         }
     }
 }

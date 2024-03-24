@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Net;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Messenger.MVVM.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace Messenger.Repositories
 {
@@ -16,6 +18,31 @@ namespace Messenger.Repositories
         public void Add(UserModel userModel)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<string> GetUsernames(string username)
+        {
+            List<string> usernames = new List<string>();
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+
+                command.Connection = connection;
+                command.CommandText = "select Username from [Users] where Username like @username";
+                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = "%" + username + "%";
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        usernames.Add(reader.GetString(reader.GetOrdinal("Username")));
+                    }
+                }
+            }
+
+            return usernames;
         }
 
         public void RegUser(UserModel user)
@@ -133,7 +160,7 @@ namespace Messenger.Repositories
                 connection.Open();
 
                 command.Connection = connection;
-                command.CommandText = "select * from [Users] whre Id = @id";
+                command.CommandText = "select * from [Users] where Id = @id";
                 command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
 
                 using (var reader = command.ExecuteReader())

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -18,7 +19,7 @@ namespace Messenger.MVVM.Models
         void Add(UserModel userModel);
         void Edit(UserModel userModel, string field);
         void Remove(int id);
-
+        IEnumerable<string> GetUsernames(string username);
         UserModel GetById(int id);
         UserModel GetByUsername(string username);
 

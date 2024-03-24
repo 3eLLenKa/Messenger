@@ -35,7 +35,14 @@
                     Content="Профиль" 
                     Style="{StaticResource MenuButtonStyle}"
                     Command="{Binding ShowProfileCommand}"/>
-                
+
+                <RadioButton 
+                    Height="25" 
+                    Margin="20" 
+                    Content="Добавить контакт" 
+                    Style="{StaticResource MenuButtonStyle}"
+                    Command="{Binding ShowAddContactCommand}"/>
+
                 <RadioButton 
                     Height="25" 
                     Margin="20"
