@@ -4,9 +4,11 @@ using Messenger.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Messenger.MVVM.ViewModels
 {
@@ -40,7 +42,10 @@ namespace Messenger.MVVM.ViewModels
 
             UserModel user = null;
 
-            if (SessionManager.IsLoggedIn()) { user = _userRepository.GetByUsername(SessionManager.Username); }
+            if (SessionManager.IsLoggedIn()) 
+            { 
+                user = _userRepository.GetByUsername(SessionManager.Username);
+            }
             else user = _userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
 
             if (user != null)
@@ -52,6 +57,9 @@ namespace Messenger.MVVM.ViewModels
                     DisplayName = $"Welcome, {user.Name} {user.LastName}",
                     ProfilePicture = null // В данном случае профильное изображение не устанавливается
                 };
+
+                Thread.CurrentPrincipal = new GenericPrincipal(
+                    new GenericIdentity(SessionManager.Username), null);
             }
             else
             {

@@ -11,6 +11,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Messenger.Utils;
 
 namespace Messenger.MVVM.ViewModels
 {
@@ -137,9 +138,13 @@ namespace Messenger.MVVM.ViewModels
                 Thread.CurrentPrincipal = new GenericPrincipal(
                     new GenericIdentity(UserName), null);
 
-                IsViewVisible = false;
+                SessionManager.Username = this.UserName;
+                SessionManager.AuthToken = "authToken123";
+               // SessionManager.UserId = _userRepository.GetByUsername(this.UserName).Id;
 
                 NavigationSource.GetNavigation.Navigate(new MainView());
+
+                IsViewVisible = false;
             }
             else
             {

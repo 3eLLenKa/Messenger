@@ -4,18 +4,22 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Messenger.MVVM.Models;
 using Messenger.MVVM.Views;
 using Messenger.Repositories;
+using Messenger.Utils;
 
 namespace Messenger.MVVM.ViewModels
 {
     public class AddContactViewModel : ViewModelBase
     {
         private string _searchText;
+        private string _selectedItem;
         private IUserRepository _userRepository;
+        private IContactRepository _contactRepository;
 
         public ObservableCollection<string> SearchResult { get; }
 
@@ -32,12 +36,23 @@ namespace Messenger.MVVM.ViewModels
                 Search();
             }
         }
+
+        public string SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
         public ICommand AddContactCommand { get; }
         public ICommand DeleteContactCommand { get; }
 
         public AddContactViewModel()
         {
             _userRepository = new UserRepository();
+            _contactRepository = new ContactRepository();
             SearchResult = new ObservableCollection<string>();
 
             AddContactCommand = new ViewModelCommand(ExecuteAddContactCommand);
@@ -46,7 +61,21 @@ namespace Messenger.MVVM.ViewModels
 
         private void ExecuteAddContactCommand(object parameter)
         {
+            var newContact = _userRepository.GetByUsername(SelectedItem);
+            var currentUserId = _userRepository.GetByUsername(SessionManager.Username);
 
+            if (newContact != null)
+            {
+                AddContactModel contact = new AddContactModel()
+                {
+                    ContactId = newContact.Id,
+                    Username = newContact.Username,
+                    FirstName = newContact.Name,
+                    LastName = newContact.LastName
+                };
+
+                _contactRepository.AddContact(contact, currentUserId.Id);
+            }
         }
 
         private void ExecuteDeleteContactCommand(object parameter)

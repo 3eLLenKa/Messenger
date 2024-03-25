@@ -9,6 +9,7 @@ namespace Messenger.Utils
     {
         private const string UsernameKey = "Username";
         private const string TokenKey = "AuthToken";
+        //private const string UserIdKey = "UserId"; // Новое свойство для идентификатора пользователя
 
         public static string Username
         {
@@ -21,6 +22,12 @@ namespace Messenger.Utils
             get { return ConfigurationManager.AppSettings[TokenKey]; }
             set { UpdateAppSettings(TokenKey, value); }
         }
+
+        //public static string UserId // Новое свойство для идентификатора пользователя
+        //{
+        //    get { return ConfigurationManager.AppSettings[UserIdKey]; }
+        //    set { UpdateAppSettings(UserIdKey, value); }
+        //}
 
         private static void UpdateAppSettings(string key, string value)
         {
@@ -43,7 +50,6 @@ namespace Messenger.Utils
             ConfigurationManager.RefreshSection("appSettings");
         }
 
-
         public static bool IsLoggedIn()
         {
             return !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(AuthToken);
@@ -53,6 +59,7 @@ namespace Messenger.Utils
         {
             Username = string.Empty;
             AuthToken = string.Empty;
+            //UserId = string.Empty; // Сбрасываем идентификатор пользователя при выходе
 
             NavigationSource.GetNavigation.Navigate(new LoginView());
         }

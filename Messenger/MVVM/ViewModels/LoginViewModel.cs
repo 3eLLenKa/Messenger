@@ -93,7 +93,8 @@ namespace Messenger.MVVM.ViewModels
                 NavigationSource.GetNavigation.Navigate(new MainView());
 
                 SessionManager.Username = this.Username;
-                SessionManager.AuthToken = "authToken123";
+                SessionManager.AuthToken = this.Username + "token";
+                //SessionManager.UserId = _userRepository.GetByUsername(this.Username).Id;
 
                 IsViewVisible = false;
             }
