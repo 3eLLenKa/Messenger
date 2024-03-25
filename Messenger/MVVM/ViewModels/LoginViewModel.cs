@@ -94,7 +94,7 @@ namespace Messenger.MVVM.ViewModels
 
                 SessionManager.Username = this.Username;
                 SessionManager.AuthToken = this.Username + "token";
-                //SessionManager.UserId = _userRepository.GetByUsername(this.Username).Id;
+                SessionManager.UserId = _userRepository.GetByUsername(this.Username).Id;
 
                 IsViewVisible = false;
             }

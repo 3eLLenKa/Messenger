@@ -1,5 +1,6 @@
 ﻿using Messenger.MVVM.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -29,6 +30,37 @@ namespace Messenger.Repositories
 
                 command.ExecuteNonQuery();
             }
+        }
+
+        public IEnumerable<AddContactModel> GetContactById(string id)
+        {
+            List<AddContactModel> contacts = new List<AddContactModel>();
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "select * from [Contacts] where UserId = @userid";
+                command.Parameters.Add("@userid", SqlDbType.Int).Value = id;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var contact = new AddContactModel
+                        {
+                            FirstName = reader["FirstName"].ToString(),
+                            LastName = reader["LastName"].ToString(),
+                            Username = reader["UserName"].ToString()
+                        };
+
+                        contacts.Add(contact);
+                    }
+                }
+            }
+
+            return contacts;
         }
     }
 }

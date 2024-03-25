@@ -140,7 +140,7 @@ namespace Messenger.MVVM.ViewModels
 
                 SessionManager.Username = this.UserName;
                 SessionManager.AuthToken = "authToken123";
-               // SessionManager.UserId = _userRepository.GetByUsername(this.UserName).Id;
+                SessionManager.UserId = _userRepository.GetByUsername(this.UserName).Id;
 
                 NavigationSource.GetNavigation.Navigate(new MainView());
 

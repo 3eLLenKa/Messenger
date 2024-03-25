@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -62,7 +63,7 @@ namespace Messenger.MVVM.ViewModels
         private void ExecuteAddContactCommand(object parameter)
         {
             var newContact = _userRepository.GetByUsername(SelectedItem);
-            var currentUserId = _userRepository.GetByUsername(SessionManager.Username);
+            var currentUserId = SessionManager.UserId;
 
             if (newContact != null)
             {
@@ -74,7 +75,7 @@ namespace Messenger.MVVM.ViewModels
                     LastName = newContact.LastName
                 };
 
-                _contactRepository.AddContact(contact, currentUserId.Id);
+                _contactRepository.AddContact(contact, currentUserId);
             }
         }
 
