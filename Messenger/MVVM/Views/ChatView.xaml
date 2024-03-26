@@ -17,7 +17,12 @@
     <Grid>
         <StackPanel>
             <TextBlock Text="Ваши чаты" FontSize="20" Margin="10"/>
-            <ListBox BorderBrush="Transparent" Height="400" ItemsSource="{Binding Contacts}" Margin="3,5,3.5,0">
+            <ListBox Name="ContactsListBox" BorderBrush="Transparent" Height="400" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedItem}" Margin="3,5,3.5,0">
+                <ListBox.InputBindings>
+                    <KeyBinding Key="Space"
+                      Command="{Binding ShowChatCommand}"
+                      CommandParameter="{Binding ElementName=ContactsListBox, Path=SelectedItem}"/>
+                </ListBox.InputBindings>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}" Margin="0,5"/>

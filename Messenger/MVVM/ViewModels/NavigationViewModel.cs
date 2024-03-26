@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Effects;
 using Messenger.MVVM.Views;
+using Messenger.Utils;
 
 namespace Messenger.MVVM.ViewModels
 {
     public class NavigationViewModel : ViewModelBase
     {
-        private object _currentView;
+        private static object _currentView;
         public object CurrentView
         {
             get { return _currentView; }
@@ -37,9 +38,9 @@ namespace Messenger.MVVM.ViewModels
             CurrentView = new ProfileView();
         }
 
-        public void ExecuteSwowProfileCommand(object parameter) => CurrentView = new ProfileView();
-        public void ExecuteShowChatCommand(object parameter) => CurrentView = new ChatView();
-        public void ExecuteShowAddContactCommand(object parameter) => CurrentView = new AddContactView();
-        public void ExecuteShowSettingsCommand(object parameter) => CurrentView = new SettingsView();
+        private void ExecuteSwowProfileCommand(object parameter) => CurrentView = new ProfileView();
+        private void ExecuteShowChatCommand(object parameter) => CurrentView = new ChatView();
+        private void ExecuteShowAddContactCommand(object parameter) => CurrentView = new AddContactView();
+        private void ExecuteShowSettingsCommand(object parameter) => CurrentView = new SettingsView();
     }
 }
