@@ -19,7 +19,9 @@ namespace Messenger.MVVM.ViewModels
     public class ChatViewModel : ViewModelBase
     {
         private string _selectedItem;
+
         private IContactRepository _contactRepository;
+        private INetworkRepository _networkRepository;
         public ObservableCollection<string> Contacts { get; }
         public ICommand ShowChatCommand { get; }
 
@@ -35,19 +37,25 @@ namespace Messenger.MVVM.ViewModels
 
         public ChatViewModel() 
         {
+            _networkRepository = new NetworkRepository();
             _contactRepository = new ContactRepository();
             Contacts = new ObservableCollection<string>();
-            ShowChatCommand = new ViewModelCommand(ExecuteShowChatCommand);
+            ShowChatCommand = new ViewModelCommand(async(parameter) => await ExecuteShowChatCommand(parameter));
 
             LoadContacts();
         }
 
-        private void ExecuteShowChatCommand(object parameter)
+        private async Task ExecuteShowChatCommand(object parameter)
         {
-            Thread.CurrentPrincipal = new GenericPrincipal(
+            var isConnected = await _networkRepository.Connect(NetworkSettings.host, NetworkSettings.port);
+
+            if (isConnected)
+            {
+                Thread.CurrentPrincipal = new GenericPrincipal(
                     new GenericIdentity(SelectedItem), null);
 
-            NavigationSource.GetNavigation.Navigate(new MessagesView());
+                NavigationSource.GetNavigation.Navigate(new MessagesView());
+            }
         }
 
         private void LoadContacts()
